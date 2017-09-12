@@ -6,8 +6,14 @@ const routes = Router();
  * GET home page
  */
 routes.get('/', (req, res) => {
-  res.render('index', { title: 'Express Babel' });
+  // make DB request to see if student has submitted form
+  res.send({ home: 'hit home' })
+  //res.render('index', { title: 'Express Babel' });
 });
+
+routes.get('/checkIfSubmitted', (req, res) => {
+  res.send({ submitted: false })
+})
 
 /**
  * GET /list
