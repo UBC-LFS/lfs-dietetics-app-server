@@ -11,8 +11,14 @@ routes.get('/', (req, res) => {
   //res.render('index', { title: 'Express Babel' });
 });
 
-routes.get('/checkIfSubmitted', (req, res) => {
+routes.get('/check', (req, res) => {
   res.send({ submitted: false })
+})
+
+routes.post('/check', (req, res) => {
+  console.log(req.params)
+  console.log(req.body)
+  res.send({ home: 'hit form' })
 })
 
 /**
