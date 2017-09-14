@@ -9,10 +9,6 @@ const app = express();
 app.use(cors())
 app.disable('x-powered-by');
 
-// // View engine setup
-// app.set('views', path.join(__dirname, '../views'));
-// app.set('view engine', 'pug');
-
 app.use(logger('dev', {
   skip: () => app.get('env') === 'test'
 }));
