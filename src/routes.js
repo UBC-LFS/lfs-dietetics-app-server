@@ -11,6 +11,12 @@ routes.get('/', (req, res) => {
   //res.render('index', { title: 'Express Babel' });
 });
 
+routes.post('/api/user', (req, res) => {
+  console.log(req.params)
+  console.log(req.body)
+  res.send({ filledForm: true })
+})
+
 routes.post('/check', (req, res) => {
   console.log(req.params)
   console.log(req.body)
