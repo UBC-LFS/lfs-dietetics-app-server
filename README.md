@@ -5,6 +5,8 @@ Server-Side for LFS's Dietetic's major application.
 ## MariaDB Local Dev Commands
 
 ``` 
+mysql.server start
+
 mysql -u root
 
 show database
