@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {write} from './write'
+import { insertQuery } from './database'
 
 const routes = Router();
 
@@ -13,7 +13,7 @@ routes.get('/', (req, res) => {
 });
 
 routes.post('/api/form', (req, res) => {
-  write(req.body);
+  insertQuery(req.body);
   res.send({ filledForm: true })
 })
 

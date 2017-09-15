@@ -1,17 +1,17 @@
 
-DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Applicants;
 
-CREATE TABLE Users
-	(firstName VARCHAR(20) NOT NULL,
-	lastName VARCHAR(20) NOT NULL,
-	id VARCHAR(20) NOT NULL,
-	phone CHAR(10) NULL,
-	email VARCHAR(40) NULL,
-    numofApps VARCHAR(20) NULL,
-    aboriginal VARCHAR(20) NULL,
-    aboriginalIdentity VARCHAR(20) NULL,
-	pin VARCHAR(20) NULL,
-	createDate DATE NOT NULL,
-	PRIMARY KEY (id));
+CREATE TABLE Applicants
+	(FirstName VARCHAR(100) NOT NULL,
+	LastName VARCHAR(100) NOT NULL,
+	ID VARCHAR(10) NOT NULL,
+	Phone VARCHAR(20) NULL,
+	Email VARCHAR(50) NULL,
+	ApplicationNumber VARCHAR(10) NULL,
+	Aboriginal VARCHAR(5) NULL,
+	AboriginalIdentity VARCHAR(20) NULL,
+	PIN VARCHAR(20) NULL,
+	CreateDate DATE NOT NULL,
+	PRIMARY KEY (ID));
 
-insert into Users values ('Patrick', 'Lin', '12345678', '7783242213', 'patricklin@alumni.ubc.ca', 'yes', 'yes', 'first nation', DATE '2016-11-02');
+insert into Applicants values ('Patrick', 'Lin', '12345678', '7783242213', 'patricklin@alumni.ubc.ca', 'yes', 'yes', 'first nation', '', DATE '2016-11-02');
