@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import {write} from './write'
 
 const routes = Router();
 
@@ -11,14 +12,17 @@ routes.get('/', (req, res) => {
   //res.render('index', { title: 'Express Babel' });
 });
 
+routes.post('/api/form', (req, res) => {
+  write(req.body);
+  res.send({ filledForm: true })
+})
+
 routes.post('/api/user', (req, res) => {
-  console.log(req.params)
   console.log(req.body)
   res.send({ filledForm: true })
 })
 
 routes.post('/check', (req, res) => {
-  console.log(req.params)
   console.log(req.body)
   res.send({ home: 'hit form' })
 })
