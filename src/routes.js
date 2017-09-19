@@ -1,30 +1,41 @@
 import { Router } from 'express';
-import { insertQuery } from './database'
+import { queryApplicant, getPin, insertQuery, checkPin } from './database'
 
 const routes = Router();
 
-/**
- * GET home page
- */
-routes.get('/', (req, res) => {
-  // make DB request to see if student has submitted form
-  res.send({ home: 'hit home' })
-  //res.render('index', { title: 'Express Babel' });
-});
+routes.post('/api/user', (req, res) => {
+  queryApplicant(req.body, (err, result) => { 
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  })
+})
+
+routes.get('/api/get-pin', (req, res) => {
+  getPin(req.body, (err, result) => { 
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  })
+})
 
 routes.post('/api/form', (req, res) => {
   insertQuery(req.body);
   res.send({ filledForm: true })
 })
 
-routes.post('/api/user', (req, res) => {
-  console.log(req.body)
-  res.send({ filledForm: true })
-})
-
-routes.post('/check', (req, res) => {
-  console.log(req.body)
-  res.send({ home: 'hit form' })
+routes.post('/api/check-pin', (req, res) => {
+  checkPin(req.body, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send({ filledForm: true })
+    }
+  })
 })
 
 /**
