@@ -6,6 +6,8 @@ import routes from './routes';
 import cors from 'cors'
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, '../public/build')))
 app.use(cors())
 app.disable('x-powered-by');
 
@@ -14,7 +16,6 @@ app.use(logger('dev', {
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../public')));
 
 // Routes
 app.use('/', routes);
