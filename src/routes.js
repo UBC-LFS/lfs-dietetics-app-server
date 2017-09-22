@@ -5,7 +5,7 @@ const routes = Router();
 
 routes.get('/api/login', (req, res) => {
   //get profile from shib
-  const profile = { cwl: 'unreg', id: 549792 };
+  const profile = { cwl: 'unreg', id: 5434373 };
   findApp(profile, (err, result) => {
     if (err) {
       console.log(err)
@@ -17,7 +17,7 @@ routes.get('/api/login', (req, res) => {
 
 routes.post('/api/form', (req, res) => {
 
-  const credentials = { cwl: 'jlee', id: 5434373 };
+  const credentials = { cwl: 'unreg', id: 5434373 };
   //if (credentials.cwl === '' || credentials.id === '') {
   //res.send({filledForm: false})
   //}
