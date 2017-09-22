@@ -69,11 +69,11 @@ const fillForm = (form, cred, callback) => {
                 const query = `INSERT INTO ${table} VALUES ('${cred.cwl}', '${form.firstName}', '${form.lastName}',
                                 ${cred.id}, '${form.phone}', '${form.email}', '${form.numOfApp}', '${form.aboriginal}', 
                                 '${form.aborId}', ${parseInt(pin)}, '${form.date}');`
-                c.query(query, function (err, rows) {
+                c.query(query, function (error, rows) {
                     if (error) {
                         callback(error);
                     }
-                    if (results.info.numRows === '1') {
+                    if (rows.info.affectedRows === '1') {
                         callback(null, { filledForm: true });
                     }
                     else {
