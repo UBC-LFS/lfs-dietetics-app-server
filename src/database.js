@@ -5,11 +5,11 @@ const database = 'lfsDieteticsApp';
 const table = 'Applicants';
 
 const c = mysql.createConnection({
-    host     : process.env.DB_HOST,
-    user     : process.env.DB_USER,
-    password : process.env.DB_PASS,
-    database : database
-  });
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: database
+});
 
 c.connect();
 
@@ -21,8 +21,6 @@ const findApp = (profile, callback) => {
         if (error) {
             callback(error);
         }
-        console.log(results)
-        console.log(results.length)
         if (results.length === 1) {
             callback(null, { filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) });
         }
