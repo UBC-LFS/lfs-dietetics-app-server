@@ -1,18 +1,17 @@
-import Client from 'mariasql';
+import mysql from 'mysql';
+require('dotenv').config()
 
 const database = 'lfsDieteticsApp';
 const table = 'Applicants';
 
-let c = new Client({
-    host: '127.0.0.1',
-    user: 'root',
-    password: '',
-    db: database
-});
+const c = mysql.createConnection({
+    host     : process.env.DB_HOST,
+    user     : process.env.DB_USER,
+    password : process.env.DB_PASS,
+    database : database
+  });
 
-c.on('connect', () => console.log('Client connected'))
-    .on('error', (err) => console.log('Client error: ' + err))
-    .on('close', (hadError) => console.log('Client closed'));
+c.connect();
 
 const findApp = (profile, callback) => {
     const cwl = profile.cwl;
@@ -22,7 +21,8 @@ const findApp = (profile, callback) => {
         if (error) {
             callback(error);
         }
-        if (results.info.numRows === '1') {
+        //console.log(results)
+        if (results.length === 1) {
             callback(null, { filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) });
         }
         else {
@@ -60,7 +60,7 @@ const fillForm = (form, cred, callback) => {
         if (err) {
             console.log(err)
         } else {
-            if (parseInt(result.info.numRows) >= 1) {
+            if (result.length >= 1) {
                 const existPins = [];
                 result.forEach(app => {
                     existPins.push(app.ApplicationNumber)
@@ -73,7 +73,8 @@ const fillForm = (form, cred, callback) => {
                     if (error) {
                         callback(error);
                     }
-                    if (rows.info.affectedRows === '1') {
+                    //console.log(rows)
+                    if (rows.length === '1') {
                         callback(null, { filledForm: true });
                     }
                     else {
