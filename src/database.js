@@ -21,7 +21,8 @@ const findApp = (profile, callback) => {
         if (error) {
             callback(error);
         }
-        //console.log(results)
+        console.log(results)
+        console.log(results.length)
         if (results.length === 1) {
             callback(null, { filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) });
         }
@@ -73,8 +74,7 @@ const fillForm = (form, cred, callback) => {
                     if (error) {
                         callback(error);
                     }
-                    //console.log(rows)
-                    if (rows.length === '1') {
+                    if (rows.affectedRows === 1) {
                         callback(null, { filledForm: true });
                     }
                     else {
