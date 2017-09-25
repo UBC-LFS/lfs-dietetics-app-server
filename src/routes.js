@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { findApp, fillForm } from './database'
+import multer from 'multer'
+const upload = multer({ dest: 'uploads/' })
 
 const routes = Router();
 
@@ -15,8 +17,8 @@ routes.get('/api/login', (req, res) => {
   })
 })
 
-routes.post('/api/form', (req, res) => {
-
+routes.post('/api/form', upload.single('files'), (req, res) => {
+  console.log(req.files, req.file)
   const credentials = { cwl: 'unreg', id: 5434373 };
   //if (credentials.cwl === '' || credentials.id === '') {
   //res.send({filledForm: false})
