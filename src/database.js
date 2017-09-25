@@ -1,7 +1,7 @@
 import mysql from 'mysql';
 require('dotenv').config()
 
-const database = 'lfsDieteticsApp';
+const database = process.env.DB_NAME;
 const table = 'Applicants';
 
 const c = mysql.createConnection({
