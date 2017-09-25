@@ -1,7 +1,18 @@
 import { Router } from 'express';
 import { findApp, fillForm } from './database'
+import writeFile from './writeFile'
 import multer from 'multer'
-const upload = multer({ dest: 'uploads/' })
+import path from 'path'
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, '/../uploads/')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+})
+const upload = multer({ storage })
 
 const routes = Router();
 
@@ -18,7 +29,10 @@ routes.get('/api/login', (req, res) => {
 })
 
 routes.post('/api/form', upload.single('files'), (req, res) => {
+  // if file exists, writes to to 
   console.log(req.file)
+  writeFile(req.file)
+
   const credentials = { cwl: 'unreg', id: 5434373 };
   //if (credentials.cwl === '' || credentials.id === '') {
   //res.send({filledForm: false})
