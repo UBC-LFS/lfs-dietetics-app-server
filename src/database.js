@@ -84,6 +84,10 @@ const fillForm = (form, cred, callback) => {
     })
 }
 
+const fillFilePath = (file, cred, callback) => {
+
+}
+
 export {
     findApp,
     fillForm,
