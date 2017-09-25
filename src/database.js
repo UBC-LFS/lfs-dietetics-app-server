@@ -1,14 +1,13 @@
 import mysql from 'mysql';
 require('dotenv').config()
 
-const database = process.env.DB_NAME;
 const table = 'Applicants';
 
 const c = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: database
+    database: process.env.DB_NAME
 });
 
 c.connect();
