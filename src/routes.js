@@ -18,7 +18,7 @@ routes.get('/api/login', (req, res) => {
 })
 
 routes.post('/api/form', upload.single('files'), (req, res) => {
-  console.log(req)
+  console.log(req.file)
   const credentials = { cwl: 'unreg', id: 5434373 };
   //if (credentials.cwl === '' || credentials.id === '') {
   //res.send({filledForm: false})
