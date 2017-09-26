@@ -15,4 +15,7 @@ CREATE TABLE Applicants
 	CreateDate DATE NOT NULL,
 	PRIMARY KEY (CWL));
 
-INSERT INTO Applicants VALUES ('plin219', 'Patrick', 'Lin', 12345678, '7783242213', 'patricklin@alumni.ubc.ca', 'yes', 'yes', 'first nation', 186620, DATE '2017-11-02');
+INSERT INTO Applicants VALUES ('plin', 'Patrick', 'Lin', 12345678, 7783242213, 'patrick.lin@ubc.ca', 'yes', '', '', 186620, DATE '2017-09-25');
+INSERT INTO Applicants VALUES ('jLee', 'Justin', 'Lee', 48535678, 7783242213, 'Justin.Lee@ubc.ca', 'no', 'no', '', 186521, DATE '2017-09-25');
+INSERT INTO Applicants VALUES ('jChan', 'Johnathan', 'Chan', 12343248, 7783242213, 'johnathan.chan@ubc.ca', 'other', 'no', '', 186610, DATE '2017-09-25');
+INSERT INTO Applicants VALUES ('aLiu', 'Aaron', 'Liu', 48564678, 7783242213, 'Aaron.Liu@ubc.ca', 'yes', 'yes', 'first nation', 186521, DATE '2017-09-25');

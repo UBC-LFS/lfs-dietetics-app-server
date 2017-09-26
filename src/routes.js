@@ -27,7 +27,7 @@ const routes = Router();
 
 routes.get('/api/login', (req, res) => {
   //get profile from shib
-  const profile = { cwl: 'reg', id: 12345678 };
+  const profile = { cwl: 'aLiu', id: 654 };
   findApp(profile, (err, result) => {
     if (err) {
       console.log(err)
@@ -40,6 +40,7 @@ routes.get('/api/login', (req, res) => {
 routes.post('/api/form', upload.single('files'), (req, res) => {
   
   // check headers for CWL attributes
+
 
   const credentials = { cwl: 'unreg', id: 5434373 };
 
@@ -60,7 +61,5 @@ routes.post('/api/form', upload.single('files'), (req, res) => {
 //   const credentials = { cwl: 'unreg', id: 5434373 }
 //   console.log(req.body)
 
-
-// })
 
 export default routes;

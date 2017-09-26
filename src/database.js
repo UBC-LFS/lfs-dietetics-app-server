@@ -18,7 +18,7 @@ const findApp = (profile, callback) => {
     const sql = `SELECT * FROM ${table} WHERE CWL='${cwl}' AND ID=${id};`;
     c.query(sql, (error, results) => {
         if (error) {
-            callback(error);
+            callback(null, { filledForm: false, ApplicationNumber: '' });
         }
         if (results.length === 1) {
             callback(null, { filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) });
@@ -42,7 +42,7 @@ const getPins = (callback) => {
 }
 
 const pinGen = () => (
-    ("18" + Math.floor(1000 + Math.random() * 9000)).toString()
+    Number(("18" + Math.floor(1000 + Math.random() * 9000)))
 )
 
 const validatePin = (pinArray) => {
@@ -61,17 +61,16 @@ const fillForm = (form, cred, callback) => {
             if (result.length >= 1) {
                 const existPins = [];
                 result.forEach(app => {
-                    existPins.push(app.ApplicationNumber)
+                    existPins.push(Number(app.ApplicationNumber))
                 })
                 const pin = validatePin(existPins)
                 const query = `INSERT INTO ${table} VALUES ('${cred.cwl}', '${form.firstName}', '${form.lastName}',
                                 ${cred.id}, '${form.phone}', '${form.email}', '${form.numOfApp}', '${form.aboriginal}', 
-                                '${form.aborId}', ${parseInt(pin)}, '${form.date}');`
+                                '${form.aborId}', ${pin}, '${form.date}');`
                 c.query(query, function (error, rows) {
                     if (error) {
-                        callback(error);
-                    }
-                    if (rows.affectedRows === 1) {
+                        callback(null, { filledForm: true });
+                    } else if (rows.affectedRows === 1) {
                         callback(null, { filledForm: true });
                     }
                     else {
