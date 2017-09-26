@@ -7,17 +7,17 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/')
   },
   filename: (req, file, cb) => {
-    console.log(req.body)
-    cb(null, `${req.body.firstName}-${req.body.lastName}-${req.body.id}` + '-' + file.originalname)
+    const timeStamp = Date.now();
+    cb(null, `${req.body.firstName}-${req.body.lastName}-${req.body.id}-${timeStamp}` + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
   }
 })
 
 const upload = multer({
-  storage,
-  filterFilter: (req, file, cb) => {
+  storage: storage,
+  fileFilter: (req, file, cb) => {
     if (file.minetype !== ('application/pdf' ||
-      'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-      'image/jpeg')) {
+    'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+    'image/jpeg')) {
       return cb(null, false, new Error('Unsupported file format'))
     }
   }
