@@ -25,7 +25,7 @@ const upload = multer({
 
 const routes = Router();
 
-routes.get('api/login', (req, res) => {
+routes.get('/api/login', (req, res) => {
   console.log('hit api login')
   //get profile from shib
   const profile = { cwl: 'aLiu', id: 654 };
@@ -38,7 +38,7 @@ routes.get('api/login', (req, res) => {
   })
 })
 
-routes.post('api/form', upload.single('files'), (req, res) => {
+routes.post('/api/form', upload.single('files'), (req, res) => {
   
   // check headers for CWL attributes
   console.log(req.body)
