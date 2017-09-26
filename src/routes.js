@@ -12,7 +12,16 @@ const storage = multer.diskStorage({
   }
 })
 
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  filterFilter: (req, file, cb) => {
+    if (file.minetype !== ('application/pdf' || 
+      'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+      'image/jpeg')) {
+        return cb(null, false, new Error('Unsupported file format'))
+      }
+  }
+ });
 
 const routes = Router();
 
@@ -29,23 +38,21 @@ routes.get('/api/login', (req, res) => {
 })
 
 routes.post('/api/form', upload.single('files'), (req, res) => {
-  // if file exists, writes to to 
-  console.log(req.file)
-  writeFile(req.file)
+  
+  // check headers for CWL attributes
 
   const credentials = { cwl: 'unreg', id: 5434373 };
-  //if (credentials.cwl === '' || credentials.id === '') {
-  //res.send({filledForm: false})
-  //}
-  console.log(req.body)
-  // fillForm(req.body, credentials, (err, result) => {
-  //   if (err) {
-  //     console.log(err)
-  //   } else {
-  //     console.log(result)
-  //     res.send(result)
-  //   }
-  // })
+
+  fillForm(req.body, credentials, (err, result) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(result)
+      res.sendStatus(200)
+    }
+  })
+
+  // check to see that file got written successfully
 })
 
 // routes.post('/api/file', (req, res) => {
