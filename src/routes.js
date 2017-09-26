@@ -26,6 +26,7 @@ const upload = multer({
 const routes = Router();
 
 routes.get('/api/login', (req, res) => {
+  console.log('hit api login')
   //get profile from shib
   const profile = { cwl: 'aLiu', id: 654 };
   findApp(profile, (err, result) => {
