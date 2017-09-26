@@ -1,14 +1,7 @@
 import { Router } from 'express';
-<<<<<<< HEAD
-import { findApp, fillForm } from './database';
-import writeFile from './writeFile';
-import multer from 'multer';
-import path from 'path';
-=======
 import { findApp, fillForm } from './database'
 import multer from 'multer'
 import path from 'path'
->>>>>>> b1e10908f5d45807dc179881ff06b60488f2bf3e
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

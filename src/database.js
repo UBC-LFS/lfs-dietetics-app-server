@@ -18,7 +18,7 @@ const findApp = (profile, callback) => {
     const sql = `SELECT * FROM ${table} WHERE CWL='${cwl}' AND ID=${id};`;
     c.query(sql, (error, results) => {
         if (error) {
-            callback(error);
+            callback(null, { filledForm: false, ApplicationNumber: '' });
         }
         if (results.length === 1) {
             callback(null, { filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) });
