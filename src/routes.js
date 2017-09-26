@@ -40,7 +40,7 @@ routes.get('/api/login', (req, res) => {
 routes.post('/api/form', upload.single('files'), (req, res) => {
   
   // check headers for CWL attributes
-
+  console.log(req.body)
 
   const credentials = { cwl: 'unreg', id: 5434373 };
 
