@@ -17,11 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-//app.use('/', routes);
-
-app.get('/api/login', (req, res) => {
-  console.log('here')
-})
+app.use('/', routes);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
