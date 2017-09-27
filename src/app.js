@@ -8,7 +8,6 @@ import cors from 'cors'
 const app = express();
 
 app.use(express.static(path.join(__dirname, '../public/build')))
-app.use(cors())
 app.disable('x-powered-by');
 
 app.use(logger('dev', {
