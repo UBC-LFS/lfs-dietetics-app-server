@@ -1,27 +1,27 @@
 import { Router } from 'express';
-import { findApp, fillForm } from './database'
-import multer from 'multer'
-import path from 'path'
+import { findApp, fillForm } from './database';
+import multer from 'multer';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/')
   },
-  filename: (req, file, cb) =>{
-    cb(null, file.originalname)
+  filename: (req, file, cb) => {
+    const timeStamp = Date.now();
+    cb(null, `${req.body.firstName}-${req.body.lastName}-${req.body.id}-${timeStamp}` + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
   }
 })
 
-const upload = multer({ 
-  storage,
-  filterFilter: (req, file, cb) => {
-    if (file.minetype !== ('application/pdf' || 
-      'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-      'image/jpeg')) {
-        return cb(null, false, new Error('Unsupported file format'))
-      }
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (file.minetype !== ('application/pdf' ||
+    'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+    'image/jpeg')) {
+      return cb(null, false, new Error('Unsupported file format'))
+    }
   }
- });
+});
 
 const routes = Router();
 
@@ -39,7 +39,7 @@ routes.get('/api/login', (req, res) => {
 })
 
 routes.post('/api/form', upload.single('files'), (req, res) => {
-  
+
   // check headers for CWL attributes
   console.log(req.body)
 
