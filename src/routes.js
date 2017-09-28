@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
+  limits: { fileSize: 11000000 },
   fileFilter: (req, file, cb) => {
     if (path.extname(file.originalname) !== '.pdf' && path.extname(file.originalname) !== '.docx' &&
       path.extname(file.originalname) !== '.doc' && path.extname !== '.jpeg' && path.extname(file.originalname) !== '.jpg') {
@@ -25,7 +26,6 @@ const upload = multer({
 });
 
 const routes = Router();
-
 const userUpload = upload.single('files')
 
 routes.get('/api/login', (req, res) => {
@@ -33,7 +33,7 @@ routes.get('/api/login', (req, res) => {
     cwl: req.headers.cwlloginname, shibSN: req.headers.studentnumber,
     shibFirstName: req.headers.givenname, shibLastName: req.headers.sn
   };
-  //const user = { cwl: 'unreg', id: 349274 }
+  //const user = { cwl: 'unreg', shibSN: 349274, shibFirstName: 'Patrck',  shibLastName: 'Lin' }
   findApp(user, (err, result) => {
     if (err) {
       console.log(err)
@@ -45,18 +45,21 @@ routes.get('/api/login', (req, res) => {
 
 routes.post('/api/form', (req, res) => {
   const user = { cwl: req.headers.cwlloginname, id: req.headers.studentnumber };
+  //const user = { cwl: 'unreg', shibSN: 349274, shibFirstName: 'Patrck',  shibLastName: 'Lin' };
   userUpload(req, res, (err) => {
     if (err) {
-      console.log(err)
+      res.send({ type: 'error', msg: err.msg })
     }
-  })
-  //const user = { cwl: 'unreg', id: 349274 };
-  fillForm(req.body, user, (err, result) => {
-    if (err) {
+    else {
       console.log(err)
-    } else {
-      console.log(result)
-      res.sendStatus(200)
+      fillForm(req.body, user, (err, result) => {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(result)
+          res.sendStatus(200)
+        }
+      })
     }
   })
 })
