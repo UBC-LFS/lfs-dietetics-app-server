@@ -16,8 +16,8 @@ const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
     if (file.minetype !== ('application/pdf' ||
-    'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-    'image/jpeg')) {
+      'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+      'image/jpeg')) {
       return cb(null, false, new Error('Unsupported file format'))
     }
   }
@@ -26,6 +26,13 @@ const upload = multer({
 const routes = Router();
 
 routes.get('/api/login', (req, res) => {
+  const user = {
+    cwl: req.headers.cwlloginname,
+    employeeNumber: req.headers.studentnumber,
+    name: req.headers.sn + " " + req.headers.givenname
+  }
+  console.log(user)
+  
   console.log('hit api login')
   //get profile from shib
   const profile = { cwl: 'aLiu', id: 654 };
@@ -39,10 +46,12 @@ routes.get('/api/login', (req, res) => {
 })
 
 routes.post('/api/form', upload.single('files'), (req, res) => {
-
-  // check headers for CWL attributes
-  console.log(req.body, req.header.cwlloginname)
-
+  const user = {
+    cwl: req.headers.cwlloginname,
+    employeeNumber: req.headers.studentnumber,
+    name: req.headers.sn + " " + req.headers.givenname
+  }
+  console.log(user)
   const credentials = { cwl: 'unreg', id: 5434373 };
 
   fillForm(req.body, credentials, (err, result) => {
