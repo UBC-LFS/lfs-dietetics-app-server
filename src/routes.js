@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
+    console.log(file.minetype)
     if (file.minetype !== ('application/pdf' ||
       'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
       'image/jpeg')) {
