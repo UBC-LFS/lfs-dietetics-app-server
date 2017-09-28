@@ -14,14 +14,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  // fileFilter: (req, file, cb) => {
-  //   if (file.minetype !== ('application/pdf' ||
-  //     'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-  //     'image/jpeg')) {
-  //     return cb(new Error('Unsupported file format'))
-  //   }
-  //   return cb(null, true)
-  // }
+  fileFilter: (req, file, cb) => {
+    if (file.minetype !== ('application/pdf' ||
+      'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+      'image/jpeg')) {
+      return cb(new Error('Unsupported file format'))
+    }
+    return cb(null, true)
+  }
 });
 
 const routes = Router();
