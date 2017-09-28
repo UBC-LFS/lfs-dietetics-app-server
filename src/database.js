@@ -14,7 +14,7 @@ c.connect();
 
 const findApp = (profile, callback) => {
     const cwl = profile.cwl;
-    const id = profile.id;
+    const id = profile.shibSN;
     const sql = `SELECT * FROM ${table} WHERE CWL='${cwl}' AND ID=${id};`;
     c.query(sql, (error, results) => {
         if (error) {

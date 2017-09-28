@@ -29,12 +29,14 @@ const routes = Router();
 const userUpload = upload.single('files')
 
 routes.get('/api/login', (req, res) => {
-  const user = {
-    cwl: req.headers.cwlloginname, shibSN: req.headers.studentnumber,
-    shibFirstName: req.headers.givenname, shibLastName: req.headers.sn
+  const profile = {
+    cwl: req.headers.cwlloginname, 
+    shibSN: req.headers.studentnumber,
+    shibFirstName: req.headers.givenname, 
+    shibLastName: req.headers.sn
   };
-  //const user = { cwl: 'unreg', shibSN: 349274, shibFirstName: 'Patrck',  shibLastName: 'Lin' }
-  findApp(user, (err, result) => {
+  //const user = { cwl: 'unreg', id: 349274 }
+  findApp(profile, (err, result) => {
     if (err) {
       console.log(err)
     } else {
