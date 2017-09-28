@@ -27,7 +27,10 @@ const upload = multer({
 const routes = Router();
 
 routes.get('/api/login', (req, res) => {
-  const profile = { cwl: req.headers.cwlloginname, id:  req.headers.studentnumber };
+  const profile = {
+    cwl: req.headers.cwlloginname, shibSN: req.headers.studentnumber,
+    shibFirstName: req.headers.givenname, shibLastName: req.headers.sn
+  };
   //const profile = { cwl: 'unreg', id: 349274 }
   findApp(profile, (err, result) => {
     if (err) {
@@ -56,14 +59,6 @@ routes.post('/api/form', (req, res) => {
       res.sendStatus(200)
     }
   })
-
-  // check to see that file got written successfully
 })
-
-// routes.post('/api/file', (req, res) => {
-
-//   const credentials = { cwl: 'unreg', id: 5434373 }
-//   console.log(req.body)
-
 
 export default routes;
