@@ -26,16 +26,7 @@ const upload = multer({
 const routes = Router();
 
 routes.get('/api/login', (req, res) => {
-  const user = {
-    cwl: req.headers.cwlloginname,
-    employeeNumber: req.headers.studentnumber,
-    name: req.headers.sn + " " + req.headers.givenname
-  }
-  console.log(user)
-  
-  console.log('hit api login')
-  //get profile from shib
-  const profile = { cwl: 'aLiu', id: 654 };
+  const profile = { cwl: req.headers.cwlloginname, id:  req.headers.studentnumber };
   findApp(profile, (err, result) => {
     if (err) {
       console.log(err)
@@ -46,13 +37,7 @@ routes.get('/api/login', (req, res) => {
 })
 
 routes.post('/api/form', upload.single('files'), (req, res) => {
-  const user = {
-    cwl: req.headers.cwlloginname,
-    employeeNumber: req.headers.studentnumber,
-    name: req.headers.sn + " " + req.headers.givenname
-  }
-  console.log(user)
-  const credentials = { cwl: 'unreg', id: 5434373 };
+  const credentials = { cwl: req.headers.cwlloginname, id: req.headers.studentnumber };
 
   fillForm(req.body, credentials, (err, result) => {
     if (err) {
