@@ -16,10 +16,8 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
-    console.log(file.minetype)
-    if (file.minetype !== ('application/pdf' ||
-      'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-      'image/jpeg')) {
+    console.log(path.extname)
+    if (path.extname !== 'pdf' || path.extname !== 'docx' || path.extname !== 'doc' || path.extname !== 'jpeg' || path.extname !== 'jpg') {
       return cb(new Error('Unsupported file format'))
     }
     return cb(null, true)
