@@ -18,8 +18,9 @@ const upload = multer({
     if (file.minetype !== ('application/pdf' ||
       'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
       'image/jpeg')) {
-      return cb(null, false, new Error('Unsupported file format'))
+      return cb(new Error('Unsupported file format'))
     }
+    return cb(null, true)
   }
 });
 
@@ -27,6 +28,7 @@ const routes = Router();
 
 routes.get('/api/login', (req, res) => {
   const profile = { cwl: req.headers.cwlloginname, id:  req.headers.studentnumber };
+  //const profile = { cwl: 'unreg', id: 349274 }
   findApp(profile, (err, result) => {
     if (err) {
       console.log(err)
@@ -36,9 +38,16 @@ routes.get('/api/login', (req, res) => {
   })
 })
 
-routes.post('/api/form', upload.single('files'), (req, res) => {
-  const credentials = { cwl: req.headers.cwlloginname, id: req.headers.studentnumber };
+const userUpload = upload.single('files')
 
+routes.post('/api/form', (req, res) => {
+  const credentials = { cwl: req.headers.cwlloginname, id: req.headers.studentnumber };
+  userUpload(req, res, (err) => {
+    if (err) {
+      console.log(err)
+    }
+  })
+  //const credentials = { cwl: 'unreg', id: 349274 };
   fillForm(req.body, credentials, (err, result) => {
     if (err) {
       console.log(err)
