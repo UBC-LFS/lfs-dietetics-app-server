@@ -1,23 +1,22 @@
 import { Router } from 'express';
 import { findApp, fillForm } from './database';
 import multer from 'multer';
+import path from 'path'
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '/../uploads/')
+    cb(null, './uploads/')
   },
   filename: (req, file, cb) => {
     const timeStamp = Date.now();
-    cb(null, `${req.body.firstName}-${req.body.lastName}-${req.body.id}-${timeStamp}` + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+    cb(null, `${req.body.firstName}-${req.body.lastName}-${req.body.id}-${timeStamp}` + '.' + path.extname(file.originalname))
   }
 })
 
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
-    if (file.minetype !== ('application/pdf' ||
-      'application/mswordapplication/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-      'image/jpeg')) {
+    if (path.extname(file.originalname) != '.pdf' && path.extname(file.originalname) != '.docx' && path.extname(file.originalname) != '.doc' && path.extname != '.jpeg' && path.extname(file.originalname) != '.jpg') {
       return cb(new Error('Unsupported file format'))
     }
     return cb(null, true)
