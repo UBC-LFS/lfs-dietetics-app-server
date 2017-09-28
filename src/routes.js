@@ -35,7 +35,7 @@ routes.get('/api/login', (req, res) => {
     shibFirstName: req.headers.givenname, 
     shibLastName: req.headers.sn
   };
-  //const user = { cwl: 'unreg', id: 349274 }
+  //const profile = { cwl: 'unreg', shibSN: 349274 }
   findApp(profile, (err, result) => {
     if (err) {
       console.log(err)
@@ -50,7 +50,7 @@ routes.post('/api/form', (req, res) => {
   //const user = { cwl: 'unreg', shibSN: 349274, shibFirstName: 'Patrck',  shibLastName: 'Lin' };
   userUpload(req, res, (err) => {
     if (err) {
-      res.send({ type: 'error', msg: err.msg })
+      res.send({ type: 'error', msg: err })
     }
     else {
       console.log(err)
