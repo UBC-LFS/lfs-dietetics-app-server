@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { findApp, fillForm } from './database';
 import multer from 'multer';
+import path from 'path'
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -8,7 +9,7 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const timeStamp = Date.now();
-    cb(null, `${req.body.firstName}-${req.body.lastName}-${req.body.id}-${timeStamp}` + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+    cb(null, `${req.body.firstName}-${req.body.lastName}-${req.body.id}-${timeStamp}` + '.' + path.extname(file.originalname))
   }
 })
 
