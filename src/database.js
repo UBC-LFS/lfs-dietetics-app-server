@@ -53,6 +53,7 @@ const validatePin = (pinArray) => {
 const fillForm = (form, file, profile, callback) => {
     getPins((err, result) => {
         if (err) {
+            console.log(err)
             callback(err, { type: 'error', filledForm: false, ApplicationNumber: '' });
         } else {
             const existPins = [];
