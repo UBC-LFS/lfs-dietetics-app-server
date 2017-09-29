@@ -70,9 +70,11 @@ const fillForm = (form, file, profile, callback) => {
                                                         ${form.id}, '${form.phone}', '${form.email}', '${form.birthday}', 
                                                         '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', ${pin}, '${pathArray[0]}', '${form.date}');`
             c.query(query, function (error, rows) {
-                if (error)
+                if (error || typeof rows === 'undefined')
                     callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
-                rows.affectedRows === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: pin }) : callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
+                else {
+                    rows.affectedRows === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: pin }) : callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
+                }
             });
         }
     })
