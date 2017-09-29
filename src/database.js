@@ -55,7 +55,7 @@ const fillForm = (form, file, profile, callback) => {
             callback(err, { type: 'error', filledForm: false, ApplicationNumber: '' });
         } else {
             const existPins = [];
-            if (typeof result === 'undefined') {
+            if (typeof result.length === 'undefined') {
                 if (result.length >= 1) {
                     result.forEach(app => {
                         existPins.push(Number(app.ApplicationNumber))
@@ -65,13 +65,16 @@ const fillForm = (form, file, profile, callback) => {
             const pathArray = []
             const pin = validatePin(existPins)
             typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
+            console.log(pathArray)
             const query = `INSERT INTO ${table} VALUES ('${profile.cwl}', ${profile.shibSN}, '${profile.shibFirstName}', 
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
                                                         ${form.id}, '${form.phone}', '${form.email}', '${form.birthday}', 
                                                         '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', ${pin}, '${pathArray[0]}', '${form.date}');`
             c.query(query, function (error, rows) {
-                if (error || typeof rows === 'undefined')
+                if (error || typeof rows === 'undefined') {
+                    console.log(error)
                     callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
+                }
                 else {
                     rows.affectedRows === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: pin }) : callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
                 }
