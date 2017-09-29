@@ -20,12 +20,7 @@ const findApp = (profile, callback) => {
         if (error) {
             callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
         }
-        if (results.length === 1) {
-            callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) });
-        }
-        else {
-            callback(null, { type: 'render', filledForm: false, ApplicationNumber: '' });
-        }
+        results.length === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) }) : callback(null, { type: 'render', filledForm: false, ApplicationNumber: '' });
     });
 }
 
@@ -56,7 +51,7 @@ const validatePin = (pinArray) => {
 const fillForm = (form, file, profile, callback) => {
     getPins((err, result) => {
         if (err) {
-            console.log(err)
+            callback(err, { type: 'error', filledForm: false, ApplicationNumber: '' });
         } else {
             const existPins = [];
             if (result.length >= 1) {
@@ -72,14 +67,9 @@ const fillForm = (form, file, profile, callback) => {
                                                         ${form.id}, '${form.phone}', '${form.email}', '${form.birthday}', 
                                                         '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', ${pin}, '${pathArray[0]}', '${form.date}');`
             c.query(query, function (error, rows) {
-                if (error) {
+                if (error)
                     callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
-                } else if (rows.affectedRows === 1) {
-                    callback(null, { type: 'render', filledForm: true, ApplicationNumber: pin });
-                }
-                else {
-                    callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
-                }
+                rows.affectedRows === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: pin }) : callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
             });
         }
     })
