@@ -62,6 +62,10 @@ const fillForm = (form, file, profile, callback) => {
                     })
                 }
             }
+            if (!profile.shibSN) profile.shibSN = ''
+            if (!profile.cwl) profile.cwl = ''
+            if (!profile.shibFirstName) profile.shibFirstName = ''
+            if (!profile.shibLastName) profile.shibLastName = ''
             const pathArray = []
             const pin = validatePin(existPins)
             typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
