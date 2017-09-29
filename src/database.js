@@ -53,7 +53,6 @@ const validatePin = (pinArray) => {
 const fillForm = (form, file, profile, callback) => {
     getPins((err, result) => {
         if (err) {
-            console.log(err)
             callback(err, { type: 'error', filledForm: false, ApplicationNumber: '' });
         } else {
             const existPins = [];
@@ -64,10 +63,7 @@ const fillForm = (form, file, profile, callback) => {
                     })
                 }
             }
-            if (!profile.shibSN) profile.shibSN = ''
-            if (!profile.cwl) profile.cwl = ''
-            if (!profile.shibFirstName) profile.shibFirstName = ''
-            if (!profile.shibLastName) profile.shibLastName = ''
+
             const pathArray = []
             const pin = validatePin(existPins)
             typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
