@@ -58,7 +58,7 @@ routes.post('/api/form', (req, res) => {
       res.send({ type: 'error', msg: err })
     }
     else {
-      fillForm(req.body, req.file.path, profile, (err, result) => {
+      fillForm(req.body, req.file, profile, (err, result) => {
         if (err) {
           console.log(err)
         } else {
