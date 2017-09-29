@@ -54,16 +54,17 @@ routes.post('/api/form', (req, res) => {
   };
   //const profile = { cwl: 'unreg', shibSN: 349274, shibFirstName: 'Patrck', shibLastName: 'Lin' };
   userUpload(req, res, (err) => {
-    if (err)
+    if (err) {
       res.status(404).send({ type: 'error', msg: err })
-      else {
-        fillForm(req.body, req.file, profile, (err, result) => {
-          if (err)
-            res.status(404).send(err)
-    
-          result.type === 'error' ? res.status(404).send(result) : res.status(200).send(result)
-        })
-      }
+    }
+    else {
+      fillForm(req.body, req.file, profile, (err, result) => {
+        if (err)
+          res.status(404).send(err)
+
+        result.type === 'error' ? res.status(404).send(result) : res.status(200).send(result)
+      })
+    }
   })
 })
 
