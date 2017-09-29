@@ -53,6 +53,7 @@ routes.post('/api/form', (req, res) => {
   };
   userUpload(req, res, (err) => {
     if (err) {
+      console.log(err)
       res.status(404).send({ type: 'error', msg: err })
     }
     else {
