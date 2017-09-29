@@ -17,10 +17,11 @@ const findApp = (profile, callback) => {
     const shibSN = profile.shibSN;
     const sql = `SELECT * FROM ${table} WHERE CWL='${cwl}' AND ShibStudentNumber=${shibSN};`;
     c.query(sql, (error, results) => {
-        if (error) {
+        if (error || typeof results === 'undefined') {
             callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
+        } else {
+            results.length === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) }) : callback(null, { type: 'render', filledForm: false, ApplicationNumber: '' });
         }
-        results.length === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) }) : callback(null, { type: 'render', filledForm: false, ApplicationNumber: '' });
     });
 }
 
@@ -54,10 +55,12 @@ const fillForm = (form, file, profile, callback) => {
             callback(err, { type: 'error', filledForm: false, ApplicationNumber: '' });
         } else {
             const existPins = [];
-            if (result.length >= 1) {
-                result.forEach(app => {
-                    existPins.push(Number(app.ApplicationNumber))
-                })
+            if (typeof result === 'undefined') {
+                if (result.length >= 1) {
+                    result.forEach(app => {
+                        existPins.push(Number(app.ApplicationNumber))
+                    })
+                }
             }
             const pathArray = []
             const pin = validatePin(existPins)
