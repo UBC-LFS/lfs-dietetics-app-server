@@ -29,6 +29,7 @@ const getPins = (callback) => {
     const query = `SELECT ApplicationNumber FROM ${table};`;
     c.query(query, (err, res) => {
         if (err) {
+            console.log(err)
             callback(err);
             return;
         } else {
@@ -52,6 +53,7 @@ const validatePin = (pinArray) => {
 const fillForm = (form, file, profile, callback) => {
     getPins((err, result) => {
         if (err) {
+            console.log(err)
             callback(err, { type: 'error', filledForm: false, ApplicationNumber: '' });
         } else {
             const existPins = [];
@@ -62,6 +64,10 @@ const fillForm = (form, file, profile, callback) => {
                     })
                 }
             }
+            if (!profile.shibSN) profile.shibSN = ''
+            if (!profile.cwl) profile.cwl = ''
+            if (!profile.shibFirstName) profile.shibFirstName = ''
+            if (!profile.shibLastName) profile.shibLastName = ''
             const pathArray = []
             const pin = validatePin(existPins)
             typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
@@ -71,8 +77,7 @@ const fillForm = (form, file, profile, callback) => {
                                                         ${form.id}, '${form.phone}', '${form.email}', '${form.birthday}', 
                                                         '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', ${pin}, '${pathArray[0]}', '${form.date}');`
             c.query(query, function (error, rows) {
-                if (error || typeof rows === 'undefined') {
-                    console.log(error)
+                if (error || typeof rows.affectedRows === 'undefined') {
                     callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
                 }
                 else {

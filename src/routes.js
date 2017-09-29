@@ -35,7 +35,6 @@ routes.get('/api/login', (req, res) => {
     shibFirstName: req.headers.givenname,
     shibLastName: req.headers.sn
   };
-  //const profile = { cwl: 'unreg', shibSN: 349274, shibFirstName: 'Patrck', shibLastName: 'Lin' }
   findApp(profile, (err, result) => {
     if (err) {
       res.status(404).send(err)
@@ -52,14 +51,15 @@ routes.post('/api/form', (req, res) => {
     shibFirstName: req.headers.givenname,
     shibLastName: req.headers.sn
   };
-  //const profile = { cwl: 'unreg', shibSN: 349274, shibFirstName: 'Patrck', shibLastName: 'Lin' };
   userUpload(req, res, (err) => {
     if (err) {
+      console.log(err)
       res.status(404).send({ type: 'error', msg: err })
     }
     else {
       fillForm(req.body, req.file, profile, (err, result) => {
         if (err)
+        console.log(err)
           res.status(404).send(err)
 
         result.type === 'error' ? res.status(404).send(result) : res.status(200).send(result)
