@@ -30,10 +30,10 @@ const userUpload = upload.single('files')
 
 routes.get('/api/login', (req, res) => {
   const profile = {
-    cwl: req.headers.cwlloginname,
-    shibSN: req.headers.studentnumber,
-    shibFirstName: req.headers.givenname,
-    shibLastName: req.headers.sn
+    cwl: req.headers.cwlloginname || '',
+    shibSN: req.headers.studentnumber || '',
+    shibFirstName: req.headers.givenname || '',
+    shibLastName: req.headers.sn || ''
   };
   findApp(profile, (err, result) => {
     if (err) {
@@ -46,10 +46,10 @@ routes.get('/api/login', (req, res) => {
 
 routes.post('/api/form', (req, res) => {
   const profile = {
-    cwl: req.headers.cwlloginname,
-    shibSN: req.headers.studentnumber,
-    shibFirstName: req.headers.givenname,
-    shibLastName: req.headers.sn
+    cwl: req.headers.cwlloginname || '',
+    shibSN: req.headers.studentnumber || '',
+    shibFirstName: req.headers.givenname || '',
+    shibLastName: req.headers.sn || ''
   };
   userUpload(req, res, (err) => {
     if (err) {
