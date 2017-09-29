@@ -14,17 +14,17 @@ c.connect();
 
 const findApp = (profile, callback) => {
     const cwl = profile.cwl;
-    const id = profile.shibSN;
-    const sql = `SELECT * FROM ${table} WHERE CWL='${cwl}' AND ID=${id};`;
+    const shibSN = profile.shibSN;
+    const sql = `SELECT * FROM ${table} WHERE CWL='${cwl}' AND ShibStudentNumber=${shibSN};`;
     c.query(sql, (error, results) => {
         if (error) {
-            callback(null, { filledForm: false, ApplicationNumber: '' });
+            callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
         }
         if (results.length === 1) {
-            callback(null, { filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) });
+            callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) });
         }
         else {
-            callback(null, { filledForm: false, ApplicationNumber: '' });
+            callback(null, { type: 'render', filledForm: false, ApplicationNumber: '' });
         }
     });
 }
@@ -64,27 +64,25 @@ const fillForm = (form, filePath, profile, callback) => {
                     existPins.push(Number(app.ApplicationNumber))
                 })
             }
+            const pathArray = []
             const pin = validatePin(existPins)
+            typeof filePath !== 'undefined' ? pathArray.push(filePath.file) : pathArray.push('')
             const query = `INSERT INTO ${table} VALUES ('${profile.cwl}', ${profile.shibSN}, '${profile.shibFirstName}', 
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
-                                                        ${form.id}, '${form.phone}', '${form.email}', '${form.numOfApp}', 
-                                                        '${form.aboriginal}', '${form.aborId}', ${pin}, '${form.date}');`
+                                                        ${form.id}, '${form.phone}', '${form.email}', '${form.birthday}', 
+                                                        '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', ${pin}, '${pathArray[0]}', '${form.date}');`
             c.query(query, function (error, rows) {
                 if (error) {
-                    callback(null, { type: 'error', filledForm: false });
+                    callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
                 } else if (rows.affectedRows === 1) {
-                    callback(null, { type: 'render', filledForm: true });
+                    callback(null, { type: 'render', filledForm: true, ApplicationNumber: pin });
                 }
                 else {
-                    callback(null, { type: 'error', filledForm: false });
+                    callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
                 }
             });
         }
     })
-}
-
-const fillFilePath = (file, cred, callback) => {
-
 }
 
 export {
