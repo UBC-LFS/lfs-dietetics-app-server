@@ -29,7 +29,6 @@ const getPins = (callback) => {
     const query = `SELECT ApplicationNumber FROM ${table};`;
     c.query(query, (err, res) => {
         if (err) {
-            console.log(err)
             callback(err);
             return;
         } else {
@@ -67,7 +66,6 @@ const fillForm = (form, file, profile, callback) => {
             const pathArray = []
             const pin = validatePin(existPins)
             typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
-            console.log(pathArray)
             const query = `INSERT INTO ${table} VALUES ('${profile.cwl}', ${profile.shibSN}, '${profile.shibFirstName}', 
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
                                                         ${form.id}, '${form.phone}', '${form.email}', '${form.birthday}', 
