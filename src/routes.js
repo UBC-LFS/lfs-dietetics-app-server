@@ -53,16 +53,12 @@ routes.post('/api/form', (req, res) => {
   };
   userUpload(req, res, (err) => {
     if (err) {
-      console.log(err)
       res.status(404).send({ type: 'error', msg: err })
     }
     else {
       fillForm(req.body, req.file, profile, (err, result) => {
-        if (err)
-        console.log(err)
-          res.status(404).send(err)
-
-        result.type === 'error' ? res.status(404).send(result) : res.status(200).send(result)
+        if (err) { res.status(404).send(err) }  
+        else result.type === 'error' ? res.status(404).send(result) : res.status(200).send(result)
       })
     }
   })
