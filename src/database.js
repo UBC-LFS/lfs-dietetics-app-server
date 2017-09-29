@@ -29,6 +29,7 @@ const getPins = (callback) => {
     const query = `SELECT ApplicationNumber FROM ${table};`;
     c.query(query, (err, res) => {
         if (err) {
+            console.log(err)
             callback(err);
             return;
         } else {
