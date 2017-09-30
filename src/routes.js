@@ -31,7 +31,7 @@ const userUpload = upload.single('files')
 routes.get('/api/login', (req, res) => {
   const profile = {
     cwl: req.headers.cwlloginname || 'none exists',
-    shibSN: 'none exists',
+    shibSN: req.headers.studentnumber || 'none exists',
     shibFirstName: req.headers.givenname || 'none exists',
     shibLastName: req.headers.sn || 'none exists'
   };
@@ -47,7 +47,7 @@ routes.get('/api/login', (req, res) => {
 routes.post('/api/form', (req, res) => {
   const profile = {
     cwl: req.headers.cwlloginname || 'none exists',
-    shibSN:  'none exists',
+    shibSN: req.headers.studentnumber || 'none exists',
     shibFirstName: req.headers.givenname || 'none exists',
     shibLastName: req.headers.sn || 'none exists'
   };
