@@ -29,6 +29,7 @@ const routes = Router();
 const userUpload = upload.single('files')
 
 routes.get('/api/login', (req, res) => {
+  console.log(req.headers)
   const profile = {
     cwl: req.headers.cwlloginname || 'none exists',
     shibSN: req.headers.studentnumber || 'none exists',
