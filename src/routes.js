@@ -35,7 +35,6 @@ routes.get('/api/login', (req, res) => {
     shibFirstName: req.headers.givenname,
     shibLastName: req.headers.sn
   };
-  console.log(profile)
   findApp(profile, (err, result) => {
     if (err) {
       res.status(404).send(err)
