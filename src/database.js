@@ -16,7 +16,6 @@ const findApp = (profile, callback) => {
     const cwl = profile.cwl;
     let shibSN = profile.shibSN;
     const sql = `SELECT * FROM ${table} WHERE CWL='${cwl}' AND ShibStudentNumber='${shibSN}';`;
-    console.log(sql)
     c.query(sql, (error, results) => {
         if (error || typeof results === 'undefined') {
             callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
