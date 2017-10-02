@@ -73,6 +73,7 @@ const fillForm = (form, file, profile, callback) => {
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
                                                         ${form.id}, '${form.phone}', '${form.email}', '${form.birthday}', 
                                                         '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', ${pin}, '${pathArray[0]}', '${form.date}');`
+            console.log(query)
             c.query(query, function (error, rows) {
                 if (error || typeof rows.affectedRows === 'undefined') {
                     callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
