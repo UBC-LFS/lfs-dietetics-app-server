@@ -68,8 +68,8 @@ const fillForm = (form, file, profile, callback) => {
             typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
             const query = `INSERT INTO ${table} VALUES ('${profile.cwl}', '${profile.shibSN}', '${profile.shibFirstName}', 
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
-                                                        ${form.id}, '${form.phone}', '${form.email}', '${form.birthday}', 
-                                                        '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', ${pin}, '${pathArray[0]}', '${form.date}');`
+                                                        '${form.id}', '${form.phone}', '${form.email}', '${form.birthday}', 
+                                                        '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', '${pin}', '${pathArray[0]}', '${form.date}');`
             c.query(query, function (error, rows) {
                 if (typeof rows.affectedRows === 'undefined') {
                     callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
