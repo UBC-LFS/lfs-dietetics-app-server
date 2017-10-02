@@ -17,6 +17,7 @@ const findApp = (profile, callback) => {
     let shibSN = profile.shibSN;
     if (shibSN == '') { shibSN = 'not applicable'} 
     const sql = `SELECT * FROM ${table} WHERE CWL='${cwl}' AND ShibStudentNumber=${shibSN};`;
+    console.log(sql)
     c.query(sql, (error, results) => {
         if (error || typeof results === 'undefined') {
             callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
@@ -73,7 +74,6 @@ const fillForm = (form, file, profile, callback) => {
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
                                                         ${form.id}, '${form.phone}', '${form.email}', '${form.birthday}', 
                                                         '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', ${pin}, '${pathArray[0]}', '${form.date}');`
-            debugger
             c.query(query, function (error, rows) {
                 if (typeof rows.affectedRows === 'undefined') {
                     callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
