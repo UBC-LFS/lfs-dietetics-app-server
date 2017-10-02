@@ -14,7 +14,8 @@ c.connect();
 
 const findApp = (profile, callback) => {
     const cwl = profile.cwl;
-    const shibSN = profile.shibSN;
+    let shibSN = profile.shibSN;
+    if (shibSN == '') { shibSN = 'not applicable'} 
     const sql = `SELECT * FROM ${table} WHERE CWL='${cwl}' AND ShibStudentNumber=${shibSN};`;
     c.query(sql, (error, results) => {
         if (error || typeof results === 'undefined') {
@@ -62,11 +63,13 @@ const fillForm = (form, file, profile, callback) => {
                     })
                 }
             }
+            let shibSN = profile.shibSN;
+            if (shibSN == '') { shibSN = 'not applicable'} 
 
             const pathArray = []
             const pin = validatePin(existPins)
             typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
-            const query = `INSERT INTO ${table} VALUES ('${profile.cwl}', ${profile.shibSN}, '${profile.shibFirstName}', 
+            const query = `INSERT INTO ${table} VALUES ('${profile.cwl}', ${shibSN}, '${profile.shibFirstName}', 
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
                                                         ${form.id}, '${form.phone}', '${form.email}', '${form.birthday}', 
                                                         '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', ${pin}, '${pathArray[0]}', '${form.date}');`
