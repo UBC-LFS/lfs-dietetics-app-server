@@ -23,7 +23,6 @@ const findApp = (profile, callback) => {
                 results.length === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) }) : callback(null, { type: 'render', filledForm: false, ApplicationNumber: '' });
             }
         })
-
         connection.release()
     })
 }
@@ -74,7 +73,7 @@ const fillForm = (form, file, profile, callback) => {
             typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
             const query = `INSERT INTO ${table} VALUES ('${profile.cwl}', '${profile.shibSN}', '${profile.shibFirstName}', 
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
-                                                        '${form.id}', '${form.phone}', '${form.email}', '${form.birthday}', 
+                                                        '${form.id}', '${form.currentInstitution}',${form.phone}', '${form.UBCEmail}','${form.email}', '${form.birthday}', 
                                                         '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', '${pin}', '${pathArray[0]}', '${form.date}');`
             c.getConnection((err, connection) => {
                 if (err) throw err
