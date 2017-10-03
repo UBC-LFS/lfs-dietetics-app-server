@@ -10,8 +10,6 @@ const c = mysql.createPool({
     database: process.env.DB_NAME
 });
 
-c.connect();
-
 const findApp = (profile, callback) => {
     const cwl = profile.cwl;
     let shibSN = profile.shibSN;
