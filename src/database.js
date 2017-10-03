@@ -76,7 +76,7 @@ const fillForm = (form, file, profile, callback) => {
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
                                                         '${form.id}', '${form.currentInstitution}',${form.phone}', '${form.UBCEmail}','${form.email}', '${form.birthday}', 
                                                         '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', '${pin}', '${pathArray[0]}', '${form.date}');`
-            console.loq(query)
+            console.log(query)
             c.getConnection((err, connection) => {
                 if (err) throw err
                 connection.query(query, function (error, rows) {
