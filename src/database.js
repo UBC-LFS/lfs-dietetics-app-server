@@ -79,6 +79,8 @@ const fillForm = (form, file, profile, callback) => {
             c.getConnection((err, connection) => {
                 if (err) throw err
                 connection.query(query, function (error, rows) {
+                    if (error) 
+                        callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
                     if (typeof rows.affectedRows === 'undefined') {
                         callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
                     }
