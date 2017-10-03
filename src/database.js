@@ -71,6 +71,7 @@ const fillForm = (form, file, profile, callback) => {
             const pathArray = []
             const pin = validatePin(existPins)
             typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
+            
             const query = `INSERT INTO ${table} VALUES ('${profile.cwl}', '${profile.shibSN}', '${profile.shibFirstName}', 
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
                                                         '${form.id}', '${form.currentInstitution}', '${form.phone}', '${form.UBCEmail}', '${form.email}', 
