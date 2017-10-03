@@ -18,7 +18,7 @@ const findApp = (profile, callback) => {
         if (err) throw err
         connection.query(sql, (error, results) => {
             if (error || typeof results === 'undefined') {
-                callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
+                callback(null, { type: 'sql-error', filledForm: false, ApplicationNumber: '' });
             } else {
                 results.length === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) }) : callback(null, { type: 'render', filledForm: false, ApplicationNumber: '' });
             }
@@ -80,9 +80,9 @@ const fillForm = (form, file, profile, callback) => {
                 if (err) throw err
                 connection.query(query, function (error, rows) {
                     if (error) 
-                        callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
+                        callback(null, { type: 'sql-error', filledForm: false, ApplicationNumber: '' });
                     if (typeof rows.affectedRows === 'undefined') {
-                        callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
+                        callback(null, { type: 'sql-error', filledForm: false, ApplicationNumber: '' });
                     }
                     rows.affectedRows === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: pin }) : callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
                 });
