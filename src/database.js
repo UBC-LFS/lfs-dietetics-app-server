@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const table = 'Applicants';
 
-const c = mysql.createConnection({
+const c = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
