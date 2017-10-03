@@ -73,8 +73,8 @@ const fillForm = (form, file, profile, callback) => {
             typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
             const query = `INSERT INTO ${table} VALUES ('${profile.cwl}', '${profile.shibSN}', '${profile.shibFirstName}', 
                                                         '${profile.shibLastName}', '${form.firstName}', '${form.lastName}',
-                                                        '${form.id}', '${form.currentInstitution}',${form.phone}', '${form.UBCEmail}','${form.email}', '${form.birthday}', 
-                                                        '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', '${pin}', '${pathArray[0]}', '${form.date}');`
+                                                        '${form.id}', '${form.currentInstitution}', '${form.phone}', '${form.UBCEmail}', '${form.email}', 
+                                                        '${form.birthday}', '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', '${pin}', '${pathArray[0]}', '${form.date}');`
             c.getConnection((err, connection) => {
                 if (err) throw err
                 connection.query(query, function (error, rows) {
