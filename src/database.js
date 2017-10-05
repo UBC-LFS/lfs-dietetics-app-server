@@ -61,7 +61,7 @@ const fillForm = (form, file, profile, callback) => {
             callback(err, { type: 'error', filledForm: false, ApplicationNumber: '' });
         } else {
             const existPins = [];
-            if (typeof result.length === 'undefined') {
+            if (typeof result.length !== 'undefined') {
                 if (result.length >= 1) {
                     result.forEach(app => {
                         existPins.push(Number(app.ApplicationNumber))
