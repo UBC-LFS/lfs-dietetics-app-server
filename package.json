@@ -1,12 +1,12 @@
 {
   "name": "lfs-dietetics-app-server",
   "version": "1.0.0",
-  "description": "Using latest JavaScript features on the server",
+  "description": "Server side for UBC LFS Dietetics' Application",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vmasto/express-babel.git"
+    "url": "git+https://github.com/UBC-LFS/lfs-dietetics-app-server.git"
   },
-  "author": "Vassilis Mastorostergios <vmasto@gmail.com>",
+  "author": "Patrick Lin <patrick.lin@ubc.ca>",
   "license": "MIT",
   "main": "dist/index.js",
   "engines": {
@@ -101,9 +101,9 @@
     "testEnvironment": "node"
   },
   "bugs": {
-    "url": "https://github.com/vmasto/express-babel/issues"
+    "url": "https://github.com/UBC-LFS/lfs-dietetics-app-server/issues"
   },
-  "homepage": "https://github.com/vmasto/express-babel#readme",
+  "homepage": "https://github.com/UBC-LFS/lfs-dietetics-app-server#readme",
   "directories": {
     "test": "test"
   }

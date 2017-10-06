@@ -1,14 +1,14 @@
-import { Router } from 'express';
-import multer from 'multer';
-import path from 'path';
-import { findApp, fillForm } from './database';
+import { Router } from 'express'
+import multer from 'multer'
+import path from 'path'
+import { findApp, fillForm } from './database'
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads/')
   },
   filename: (req, file, cb) => {
-    const timeStamp = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+    const timeStamp = new Date().toJSON().slice(0, 10).replace(/-/g, '-')
     cb(null, `${req.body.id}-${req.body.firstName}-${req.body.lastName}-${timeStamp}${path.extname(file.originalname)}`)
   }
 })
@@ -23,9 +23,9 @@ const upload = multer({
     }
     return cb(null, true)
   }
-});
+})
 
-const routes = Router();
+const routes = Router()
 const userUpload = upload.single('files')
 
 routes.get('/api/login', (req, res) => {
@@ -34,7 +34,7 @@ routes.get('/api/login', (req, res) => {
     shibSN: req.headers.studentnumber,
     shibFirstName: req.headers.givenname,
     shibLastName: req.headers.sn
-  };
+  }
   findApp(profile, (err, result) => {
     if (err) {
       res.status(404).send(err)
@@ -50,18 +50,16 @@ routes.post('/api/form', (req, res) => {
     shibSN: req.headers.studentnumber,
     shibFirstName: req.headers.givenname,
     shibLastName: req.headers.sn
-  };
+  }
   userUpload(req, res, (err) => {
     if (err) {
       res.status(404).send({ type: 'error', msg: err })
-    }
-    else {
+    } else {
       fillForm(req.body, req.file, profile, (err, result) => {
-        if (err) { res.status(404).send(err) }  
-        else result.type === 'error' ? res.status(404).send(result) : res.status(200).send(result)
+        if (err) { res.status(404).send(err) } else result.type === 'error' ? res.status(404).send(result) : res.status(200).send(result)
       })
     }
   })
 })
 
-export default routes;
+export default routes

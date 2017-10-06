@@ -1,30 +1,29 @@
-import express from 'express';
-import path from 'path';
-import logger from 'morgan';
-import bodyParser from 'body-parser';
-import routes from './routes';
-import cors from 'cors'
+import express from 'express'
+import path from 'path'
+import logger from 'morgan'
+import bodyParser from 'body-parser'
+import routes from './routes'
 
-const app = express();
+const app = express()
 
 app.use(express.static(path.join(__dirname, '../public/build')))
-app.disable('x-powered-by');
+app.disable('x-powered-by')
 
 app.use(logger('dev', {
   skip: () => app.get('env') === 'test'
-}));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+}))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Routes
-app.use('/', routes);
+app.use('/', routes)
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+  const err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
 
 // Error handler
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
@@ -33,6 +32,6 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     // .render('error', {
     //   message: err.message
     // });
-});
+})
 
-export default app;
+export default app
