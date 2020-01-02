@@ -4,10 +4,10 @@ require('dotenv').config()
 const table = 'Applicants'
 
 const c = mysql.createPool({
-  host: 'localhost', //process.env.DB_HOST,
-  user: 'root', // process.env.DB_USER,
-  password: '12', // process.env.DB_PASS,
-  database: 'dietetics'  //process.env.DB_NAME
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME
 })
 
 const findApp = (profile, callback) => {
