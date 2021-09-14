@@ -20,7 +20,7 @@ const findApp = (profile, callback) => {
       if (error || typeof results === 'undefined') {
         callback(null, { type: 'sql-error', filledForm: false, ApplicationNumber: '' })
       } else {
-        results.length === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) }) : callback(null, { type: 'render', filledForm: false, ApplicationNumber: '', msg: 'DB query validation failed' })
+        results.length === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) }) : callback(null, { type: 'render', filledForm: false, ApplicationNumber: '' })
       }
     })
     connection.release()
@@ -75,12 +75,14 @@ const fillForm = (form, file, profile, callback) => {
       c.getConnection((err, connection) => {
         if (err) throw err;
 
+        /*
         // Check whether inputs and emails are validated or not
         if ( validateInputs(profile.cwl, profile.shibSN, profile.shibFirstName, profile.shibLastName, form.firstName, form.lastName, form.currentInstitution, form.date) === false
             || validateEmail(form.UBCEmail) === false || validateEmail(form.email) === false ) {
           callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
           return;
         }
+        */
 
         // To prepare mysql-format queries
         // https://github.com/mysqljs/mysql#preparing-queries
