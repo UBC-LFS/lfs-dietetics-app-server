@@ -77,6 +77,7 @@ const fillForm = (form, file, profile, callback) => {
       c.getConnection((err, connection) => {
         if (err) throw err;
         connection.query(query, function (error, rows) {
+          console.log(error, rows)
           if (error) { callback(null, { type: 'sql-error', filledForm: false, ApplicationNumber: '' }) }
           if (typeof rows.affectedRows === 'undefined') {
             callback(null, { type: 'sql-error', filledForm: false, ApplicationNumber: '' })
@@ -84,7 +85,7 @@ const fillForm = (form, file, profile, callback) => {
           rows.affectedRows === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: pin }) : callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' })
         })
           connection.release();
-        })
+      })
     }
   })
 }
