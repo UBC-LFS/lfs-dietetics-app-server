@@ -85,8 +85,6 @@ const fillForm = (form, file, profile, callback) => {
         })
           connection.release();
         })
-
-      })
     }
   })
 }
