@@ -20,7 +20,7 @@ const findApp = (profile, callback) => {
       if (error || typeof results === 'undefined') {
         callback(null, { type: 'sql-error', filledForm: false, ApplicationNumber: '' })
       } else {
-        results.length === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) }) : callback(null, { type: 'render', filledForm: false, ApplicationNumber: '' })
+        results.length === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: (results[0].ApplicationNumber) }) : callback(null, { type: 'render', filledForm: false, ApplicationNumber: '', msg: 'DB query validation failed' })
       }
     })
     connection.release()
