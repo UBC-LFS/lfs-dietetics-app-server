@@ -72,35 +72,17 @@ const fillForm = (form, file, profile, callback) => {
       const pin = validatePin(existPins)
       typeof file !== 'undefined' ? pathArray.push(file.path) : pathArray.push('')
 
+      const query = `INSERT INTO ${table} VALUES ('${profile.cwl}', '${profile.shibSN}', '${profile.shibFirstName}', '${profile.shibLastName}', '${form.firstName}', '${form.lastName}', '${form.id}', '${form.currentInstitution}', '${form.phone}', '${form.UBCEmail}', '${form.email}', '${form.birthday}', '${form.firstApp}', '${form.numOfApp}', '${form.aboriginal}', '${form.aborId}', '${pin}', '${pathArray[0]}', '${form.date}');`
+
       c.getConnection((err, connection) => {
         if (err) throw err;
-
-        /*
-        // Check whether inputs and emails are validated or not
-        if ( validateInputs(profile.cwl, profile.shibSN, profile.shibFirstName, profile.shibLastName, form.firstName, form.lastName, form.currentInstitution, form.date) === false
-            || validateEmail(form.UBCEmail) === false || validateEmail(form.email) === false ) {
-          callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
-          return;
-        }
-        */
-
-        // To prepare mysql-format queries
-        // https://github.com/mysqljs/mysql#preparing-queries
-        let query = "INSERT INTO ?? VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        const inserts = [
-          table, profile.cwl, parseInt(profile.shibSN), profile.shibFirstName, profile.shibLastName,
-          form.firstName, form.lastName, parseInt(form.id), form.currentInstitution, form.phone,
-          form.UBCEmail, form.email, form.birthday, form.numOfApp, form.aboriginal, form.aborId,
-          pin, pathArray[0], form.date
-        ];
-        query = mysql.format(query, inserts);
-
         connection.query(query, function (error, rows) {
-          if (error || typeof rows === 'undefined') {
-            callback({ type: 'sql-error', filledForm: false, ApplicationNumber: '' }, null);
-          } else {
-            rows.affectedRows === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: pin }) : callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' });
+          if (error) { callback(null, { type: 'sql-error', filledForm: false, ApplicationNumber: '' }) }
+          if (typeof rows.affectedRows === 'undefined') {
+            callback(null, { type: 'sql-error', filledForm: false, ApplicationNumber: '' })
           }
+          rows.affectedRows === 1 ? callback(null, { type: 'render', filledForm: true, ApplicationNumber: pin }) : callback(null, { type: 'error', filledForm: false, ApplicationNumber: '' })
+        })
           connection.release();
         })
 
