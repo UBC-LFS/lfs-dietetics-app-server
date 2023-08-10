@@ -64,6 +64,7 @@ typings/
 .idea
 dist
 .DS_Store
+src/certs/
 
 /public/build/
 

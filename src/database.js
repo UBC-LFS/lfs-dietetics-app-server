@@ -1,4 +1,6 @@
-import mysql from 'mysql'
+const fs = require('fs');
+const mysql = require('mysql2');
+
 require('dotenv').config()
 
 const table = 'Applicants'
@@ -7,8 +9,12 @@ const c = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: process.env.DB_NAME
-})
+  database: process.env.DB_NAME,
+  ssl: {
+    key: fs.readFileSync('./certs/client-key.pem'),
+    cert: fs.readFileSync('./certs/client-cert.pem')
+  }
+});
 
 const findApp = (profile, callback) => {
   const cwl = profile.cwl
