@@ -48,7 +48,7 @@ const getPins = (callback) => {
 }
 
 const pinGen = () => (
-    Number(('23' + Math.floor(1000 + Math.random() * 9000)))
+    Number(('24' + Math.floor(1000 + Math.random() * 9000)))
 )
 
 const validatePin = (pinArray) => {
