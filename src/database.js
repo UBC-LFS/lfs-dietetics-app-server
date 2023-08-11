@@ -11,8 +11,7 @@ const c = mysql.createPool({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   ssl: {
-    key: fs.readFileSync('./certs/client-key.pem'),
-    cert: fs.readFileSync('./certs/client-cert.pem')
+    ca: fs.readFileSync('./certs/ca-cert.pem')
   }
 });
 
